@@ -6,6 +6,7 @@ const Shorten = () => {
     const [ input, setInput ] = useState("");
     const [ error, setError ] = useState(false);
     const [ errorMsg, setErrorMsg ] = useState("");
+    const [ links, setLinks ] = useState(null);
 
 
     const validURL = (url) => {
@@ -35,11 +36,19 @@ const Shorten = () => {
             setError(false);
             setErrorMsg("");
             toast.success("Success")
+            shortenLink(input);
         }
         
     }
 
 
+    const shortenLink = async (url) => {
+        const res = await fetch(`https://api.shrtco.de/v2/shorten?url=${url}`, {
+            method: "POST"
+        })
+        const data = await res.json();
+        setLinks(data.result);
+    }
 
   return (
     <section className="relative bg-gray-100">
@@ -50,10 +59,7 @@ const Shorten = () => {
                 <button className="px-10 py-3 text-white bg-cyan rounded-lg hover:bg-cyanLight focus:outline-none md:py-2">Shorten It!</button>
                 { error && <div className="absolute left-7 bottom-3 text-red text-small italic">{errorMsg}</div>}
             </form>
-
-            <Link link="https://frontendmentor.io" shortenUrl="https://rel.ink/k4IKyk" />
-            <Link link="https://frontendmentor.io" shortenUrl="https://rel.ink/k4IKyk" />
-            <Link link="https://frontendmentor.io" shortenUrl="https://rel.ink/k4IKyk" />
+            { links && <Link link={links.original_link} shortenUrl={links.full_short_link} />}
         </div>
     </section>
   )
