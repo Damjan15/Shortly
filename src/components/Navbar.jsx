@@ -1,6 +1,9 @@
+import { useState } from "react"
 import logo from "../assets/logo.svg"
 
 const Navbar = () => {
+    const [ open, setOpen ] = useState(false);
+
   return (
     <nav className="relative container mx-auto p-6">
         <div className="flex items-center justify-between">
@@ -20,10 +23,31 @@ const Navbar = () => {
                 <a href="/" className="hover:text-veryDarkViolet">Login</a>
                 <a href="/" className="px-8 py-3 font-bold text-white bg-cyan rounded-full hover:opacity-70">Sign Up</a>
             </div>
-            {/* @todo -> Hamburger Menu */}
+
+            <button
+            className={`block hamburger ${open && "open"} md:hidden focus:outline-none`}
+            type="button"
+            onClick={() => setOpen(!open)}
+          >
+            <span className="hamburger-top"></span>
+            <span className="hamburger-middle"></span>
+            <span className="hamburger-bottom"></span>
+          </button>
         </div>
 
-        {/* @todo -> Mobile Menu */}
+        { open && (
+             <div className="absolute flex p-6 rounded-lg bg-darkViolet left-6 right-6 top-20 z-100">
+             <div className="flex flex-col items-center justify-center w-full space-y-6 font-bold text-white rounded-sm">
+                 <a href="/" className="w-full text-center">Features</a>
+                 <a href="/" className="w-full text-center">Pricing</a>
+                 <a href="/" className="w-full text-center">Resources</a>
+                 <a href="/" className="w-full pt-6 border-t border-gray-400 text-center">Login</a>
+                 <a href="/" className="w-full py-3 rounded-full text-center bg-cyan">Sign Up</a>
+             </div>
+         </div>
+        )}
+
+        
     </nav>
   )
 }
