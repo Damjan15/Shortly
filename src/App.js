@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import { Navbar, Hero, Shorten } from "./components";
+import { Navbar, Hero, Shorten, Stats, Features } from "./components";
 
 function App() {
   return (
@@ -7,6 +7,8 @@ function App() {
       <Navbar />
       <Hero />
       <Shorten />
+      <Stats />
+      <Features />
       <Toaster />
     </div>
   );
